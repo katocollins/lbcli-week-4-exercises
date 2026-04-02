@@ -103,3 +103,27 @@ jobs:
             echo "❌ Error: UnLocking Script verification failed!"
             exit 1
           fi
+
+      - name: 06.sh - Verify Witness Signature
+        run: |
+          chmod +x submission/06.sh
+          SIGNATURE=$(submission/06.sh)
+          EXPECTED_OUTPUT=304502210091511bb7d1c9525c1efdc4f389cbdf47a413ca8b8854a2feb8a7552a60321334022062aa1c90da6d3215ea4a301031518ab4fe657b8d2065ba05ab1e64a6ec385bcf01
+          if [[ "$SIGNATURE" == "$EXPECTED_OUTPUT" ]]; then
+            echo "✅ Success: Witness Signature verification passed!"
+          else
+            echo "❌ Error: Witness Signature verification failed!"
+            exit 1
+          fi
+
+      - name: 07.sh - Verify Public Key
+        run: |
+          chmod +x submission/07.sh
+          PUBKEY=$(submission/07.sh)
+          EXPECTED_OUTPUT=032f306c639e6a76baf57524efe145f9a9b09d123a49cdd6aaf433cf7ab7b78979
+          if [[ "$PUBKEY" == "$EXPECTED_OUTPUT" ]]; then
+            echo "✅ Success: Witness Public Key verification passed!"
+          else
+            echo "❌ Error: Witness Public Key verification failed!"
+            exit 1
+          fi
